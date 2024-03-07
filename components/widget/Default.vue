@@ -9,7 +9,7 @@ const props = defineProps<Props>()
 
 <template>
   <!-- TODO: Verificar overflow-x-inherit  -->
-  <div class="overflow-x-inherit rounded-lg bg-white">
+  <div class="overflow-x-inherit w-full rounded-lg bg-white p-5">
     <div v-if="props.title" class="flex items-center justify-between">
       <div class="flex flex-col gap-1">
         <h3 class="text-left text-lg font-bold text-gray-700">

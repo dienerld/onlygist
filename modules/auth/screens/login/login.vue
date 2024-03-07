@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import SocialForm from '@/modules/auth/components/social-form/social-form.vue'
+import { SocialForm } from '../../components/social-form'
+
 const loading = ref(false)
 
 const handleGithubLogin = async() => {
