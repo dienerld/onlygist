@@ -7,11 +7,14 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db:generate-types": "supabase gen types typescript --local > ./libs/supabase/schema.ts"
   },
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.1.3",
+    "@nuxtjs/supabase": "^1.1.7",
     "@nuxtjs/tailwindcss": "^6.11.4",
+    "@supabase/supabase-js": "^2.39.7",
     "@wooorm/starry-night": "^3.2.0",
     "hast-util-to-html": "^9.0.0",
     "marked": "^12.0.1",

@@ -15,6 +15,12 @@ module.exports = {
     }
   ],
   rules: {
-    'space-before-function-paren': ['error', 'never']
+    'space-before-function-paren': ['error', 'never'],
+    'vue/multi-word-component-names': 'off',
+    'tailwindcss/no-custom-classname': ['warn', {
+      cssFiles: [
+        'node_modules/primeicons/primeicons.css'
+      ]
+    }]
   }
 }

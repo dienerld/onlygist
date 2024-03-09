@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import Login from '@/modules/auth/screens/login/login.vue'
+import { Login } from '@/modules/auth/screens'
+
+definePageMeta({
+  layout: 'default'
+})
 </script>
 
 <template>

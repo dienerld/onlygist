@@ -1,1 +1,1 @@
-export { default as SocialForm } from './SocialForm.vue';
+export { default as SocialForm } from './social-form.vue';
