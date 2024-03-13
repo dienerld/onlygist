@@ -1,5 +1,6 @@
 import type { Database } from '~/libs/supabase/schema';
 import { AuthGithubService } from '~/modules/auth/services/service';
+import { UserServices } from '~/modules/users/services';
 
 export function useServices() {
   const supabase = useSupabaseClient<Database>();
@@ -9,5 +10,6 @@ export function useServices() {
     auth: AuthGithubService(supabase, {
       redirectTo: `${config.public.siteUrl}/auth/github`,
     }),
+    user: UserServices(supabase),
   };
 }
