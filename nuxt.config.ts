@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     ],
   },
 
+  pages: true,
   runtimeConfig: {
     public: {
       nodeEnv: process.env.NODE_ENV,

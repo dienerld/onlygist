@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { HeadlineEdit, HeadlineEditLoader } from '@/modules/users/components/headline-edit'
-import { myselfKey } from '../../composables/use-myself/useMyself'
+import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
 
 const { loading, user } = inject(myselfKey)!
 

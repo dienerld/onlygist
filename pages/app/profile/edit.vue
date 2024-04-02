@@ -9,6 +9,3 @@ definePageMeta({
 <template>
   <EditProfile />
 </template>
-<style scoped>
-
-</style>
