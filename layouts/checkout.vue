@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Header, HeaderLoader } from '~/modules/auth/components/header'
+import { Header as HeaderNotAuthenticated } from '~/modules/landing-page/components/header'
 import { useSession } from '~/modules/auth/composables/use-session/useSession'
 import { useMyself } from '~/modules/users/composables/use-myself/useMyself'
 
@@ -30,6 +31,10 @@ const handleLogout = async() => {
   }
 }
 
+const handleWantsBeCreator = () => {
+  router.push('/auth/login')
+}
+
 </script>
 
 <template>
@@ -38,6 +43,7 @@ const handleLogout = async() => {
       <template #header>
         <HeaderLoader :loading="loading">
           <Header
+            v-if="session.isLogged()"
             :profile-pic="profilePic"
             :nickname="nickname"
             @navigate-to-new-gist="() => router.push('/app/gists/create')"
@@ -46,6 +52,7 @@ const handleLogout = async() => {
             @navigate-to-reports="() => router.push('/app/panel')"
             @logout="handleLogout"
           />
+          <HeaderNotAuthenticated v-else @wants-be-creator="handleWantsBeCreator" />
         </HeaderLoader>
       </template>
       <template #content>

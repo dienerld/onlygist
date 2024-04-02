@@ -37,3 +37,10 @@ body,
 * {
   @apply font-sans;
 }
+
+@layer utilities {
+  .f-center {
+    @apply flex items-center justify-center;
+  }
+
+}
