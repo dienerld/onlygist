@@ -29,6 +29,9 @@ importers:
       marked:
         specifier: ^12.0.1
         version: 12.0.1
+      maska:
+        specifier: ^3.0.2
+        version: 3.0.2
       nuxt-primevue:
         specifier: ^0.3.1
         version: 0.3.1(rollup@4.13.2)(vue@3.4.21(typescript@5.4.3))
@@ -44,6 +47,9 @@ importers:
       vue-router:
         specifier: ^4.3.0
         version: 4.3.0(vue@3.4.21(typescript@5.4.3))
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@nuxtjs/eslint-config-typescript':
         specifier: ^12.1.0
@@ -3364,6 +3370,9 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
+  maska@3.0.2:
+    resolution: {integrity: sha512-onh3JCFrkUTFrrhhDpfQZGwQ830zeEUEVbuQDZpLzY/JXJ5QR+hQ6FJ7lcw1NikAixtpGXkxxC+teO5glT3Vyw==}
+
   mdast-util-to-hast@13.1.0:
     resolution: {integrity: sha512-/e2l/6+OdGp/FB+ctrJ9Avz71AN/GRH3oi/3KAx/kMnoUsD6q0woXlDT8lLEeViVKE7oZxE7RXzvO3T8kF2/sA==}
 
@@ -5252,6 +5261,9 @@ packages:
   zip-stream@6.0.1:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
+
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -9395,6 +9407,8 @@ snapshots:
 
   marked@12.0.1: {}
 
+  maska@3.0.2: {}
+
   mdast-util-to-hast@13.1.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -11643,5 +11657,7 @@ snapshots:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.5.2
+
+  zod@3.23.8: {}
 
   zwitch@2.0.4: {}

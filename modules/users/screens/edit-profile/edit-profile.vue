@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { HeadlineEdit, HeadlineEditLoader } from '@/modules/users/components/headline-edit'
+import { BasicInfoForm } from '@/modules/users/components/base-info-form'
 import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
 
 const { loading, user } = inject(myselfKey)!
@@ -24,6 +25,10 @@ const handleNavigateToProfile = (username: string) => {
       @navigate-to-profile="handleNavigateToProfile"
     />
   </HeadlineEditLoader>
+
+  <WidgetDefault title="Informações Básicas">
+    <BasicInfoForm />
+  </WidgetDefault>
 </template>
 <style scoped>
 
