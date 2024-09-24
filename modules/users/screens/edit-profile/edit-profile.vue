@@ -17,7 +17,6 @@ const handleNavigateToProfile = (username: string) => {
 <template>
   <HeadlineEditLoader :loading="loading">
     <HeadlineEdit
-      v-if=" user"
       :avatar-url="user.avatarUrl"
       :username="user.username"
       class="my-10"

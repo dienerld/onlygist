@@ -10,11 +10,12 @@ export function useMyself() {
   const user = ref<User>();
   const loading = ref(true);
   const session = useSession();
-  provide<MySelfProvider>(myselfKey, { user, loading });
+  provide<MySelfProvider>(myselfKey, { user: user as Ref<User>, loading: loading as Ref<boolean> });
 
   const fetchUser = async () => {
     loading.value = true;
     try {
+      if(!session.isLogged()) return;
       const response = await services.user.getMyself(session.user.value!.id);
       if (!response) return;
 

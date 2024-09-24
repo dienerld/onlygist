@@ -33,7 +33,6 @@ const handleLogout = async() => {
 </script>
 
 <template>
-  <ClientOnly>
     <div class="flex size-full flex-col items-center">
       <MainContent>
         <template #header>
@@ -56,5 +55,4 @@ const handleLogout = async() => {
         </template>
       </MainContent>
     </div>
-  </ClientOnly>
 </template>

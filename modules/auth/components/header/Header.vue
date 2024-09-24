@@ -14,7 +14,7 @@ const props = defineProps<{
   nickname: string
 }>()
 
-const menu = ref(null)
+const menu = ref<{toggle: Function} | null>(null)
 
 const items: MenuItem[] = [
   {

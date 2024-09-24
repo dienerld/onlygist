@@ -29,7 +29,7 @@ const props = defineProps<{
         @click="() => emit('navigate-to-profile', props.username)"
       />
       <Button
-        label="Ver Perfil"
+        label="Compartilhar"
         size="small"
         icon="pi pi-share-alt"
         icon-pos="right"
