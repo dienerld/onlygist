@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { HeadlineEdit, HeadlineEditLoader } from '@/modules/users/components/headline-edit'
-import { BasicInfoForm } from '@/modules/users/components/base-info-form'
 import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
+import { useUserProfileActions } from '@/modules/users/composables/use-user-profile-actions/use-user-profile-actions'
+import { BasicInfoForm } from '@/modules/users/components/base-info-form'
+import { AddressForm } from '@/modules/users/components/address-form'
 
 const { loading, user } = inject(myselfKey)!
-
+const router = useRouter()
+const { share } = useUserProfileActions()
 const handleShare = (username: string) => {
-  console.log('Compartilhar perfil de', username)
+  share(username)
 }
 
 const handleNavigateToProfile = (username: string) => {
-  console.log('Navegar para perfil de', username)
+  router.push(`/${username}`)
 }
 
 </script>
@@ -28,6 +31,9 @@ const handleNavigateToProfile = (username: string) => {
 
   <WidgetDefault title="Informações Básicas">
     <BasicInfoForm />
+  </WidgetDefault>
+  <WidgetDefault class="mt-5" title="Endereço">
+    <AddressForm :loading="false" />
   </WidgetDefault>
 </template>
 <style scoped>
