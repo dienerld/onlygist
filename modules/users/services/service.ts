@@ -1,8 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { getMyselfAdapter, searchAddressByZipCodeAdapter } from './adapters';
 import type { Database } from '~/libs/supabase/schema';
+
+import type { User } from '@/modules/users/entities/user';
+
+import { getMyselfAdapter, searchAddressByZipCodeAdapter } from './adapters';
 import type { SearchAddressResponse } from './types';
-import type { User } from '../entities/user';
 
 export const UserServices = (client: SupabaseClient<Database>) => ({
   async getMyself(id: string) {
@@ -23,22 +25,26 @@ export const UserServices = (client: SupabaseClient<Database>) => ({
     return { data: address };
   },
 
-
   async update(id: string, { name, site, bio, phone, address }: User) {
-    await client.from('profiles').update({
-      name,
-      site, bio, phone,
-      address: {
-        zipCode: address?.zipCode,
-        street: address?.street,
-        number: address?.number,
-        complement: address?.complement,
-        neighborhood: address?.neighborhood,
-        city: address?.city,
-        state: address?.state,
-      }
-    }).eq('id', id);
+    await client
+      .from('profiles')
+      .update({
+        name,
+        site,
+        bio,
+        phone,
+        address: {
+          zipCode: address?.zipCode,
+          street: address?.street,
+          number: address?.number,
+          complement: address?.complement,
+          neighborhood: address?.neighborhood,
+          city: address?.city,
+          state: address?.state,
+        },
+      })
+      .eq('id', id);
 
-    return { id }
-  }
+    return { id };
+  },
 });

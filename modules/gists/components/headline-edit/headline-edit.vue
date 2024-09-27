@@ -1,3 +1,4 @@
+<!-- eslint-disable func-call-spacing -->
 <script setup lang="ts">
 // @ts-ignore
 import getProgrammingLanguage from 'detect-programming-language'
