@@ -11,12 +11,13 @@
     "db:generate-types": "supabase gen types typescript --local > ./libs/supabase/schema.ts"
   },
   "dependencies": {
+    "@guolao/vue-monaco-editor": "^1.5.4",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/supabase": "^1.2.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@supabase/supabase-js": "^2.41.1",
     "@vueuse/core": "^11.1.0",
     "@wooorm/starry-night": "^3.3.0",
+    "detect-programming-language": "^1.0.4",
     "hast-util-to-html": "^9.0.0",
     "marked": "^12.0.1",
     "maska": "^3.0.2",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@supabase/supabase-js": "^2.45.4",
     "eslint": "^8.57.0",
     "eslint-config-dienerld": "^1.0.9",
     "nuxt": "^3.11.1",

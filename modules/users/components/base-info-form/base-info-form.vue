@@ -28,7 +28,7 @@ const user = defineModel<User>({
 
       <div class="flex flex-1 flex-col gap-2">
         <label for="site">Site</label>
-        <InputText id="name" v-model="user.site" placeholder="dienerld.dev" />
+        <InputText id="site" v-model="user.site" placeholder="dienerld.dev" />
         <small v-if="props.errors?.site">{{ props.errors?.site?._errors[0] }}</small>
       </div>
     </div>
@@ -36,7 +36,7 @@ const user = defineModel<User>({
     <div class="flex flex-col gap-2 md:flex-row">
       <div class="flex flex-1 flex-col gap-2">
         <label for="bio">Bio</label>
-        <InputText id="name" v-model="user.bio" placeholder="Software Engineer" />
+        <InputText id="bio" v-model="user.bio" placeholder="Software Engineer" />
         <small v-if="props.errors?.bio">{{ props.errors?.bio?._errors[0] }}</small>
       </div>
 

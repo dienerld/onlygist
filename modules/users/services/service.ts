@@ -1,6 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { getMyselfAdapter } from './adapters';
+import { getMyselfAdapter, searchAddressByZipCodeAdapter } from './adapters';
 import type { Database } from '~/libs/supabase/schema';
+import type { SearchAddressResponse } from './types';
+import type { User } from '../entities/user';
 
 export const UserServices = (client: SupabaseClient<Database>) => ({
   async getMyself(id: string) {
@@ -13,4 +15,30 @@ export const UserServices = (client: SupabaseClient<Database>) => ({
     const user = getMyselfAdapter(response.data);
     return user;
   },
+
+  async searchAddressByZipCode(zipCode: string) {
+    const url = `https://viacep.com.br/ws/${zipCode}/json/`;
+    const response = await $fetch<SearchAddressResponse>(url);
+    const address = searchAddressByZipCodeAdapter(response);
+    return { data: address };
+  },
+
+
+  async update(id: string, { name, site, bio, phone, address }: User) {
+    await client.from('profiles').update({
+      name,
+      site, bio, phone,
+      address: {
+        zipCode: address?.zipCode,
+        street: address?.street,
+        number: address?.number,
+        complement: address?.complement,
+        neighborhood: address?.neighborhood,
+        city: address?.city,
+        state: address?.state,
+      }
+    }).eq('id', id);
+
+    return { id }
+  }
 });
