@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Code } from '@/modules/gists/entities/gist'
+import type { ZodFormattedError } from 'zod'
+import type { Code, Gist } from '~/modules/gist/entities/gist'
 
 const DEFAULT_CODE = `
 interface User {
@@ -28,6 +29,10 @@ const MONACO_EDITOR_OPTIONS = {
   fontSize: 15
 }
 
+const props = defineProps<{
+  errors?: ZodFormattedError<Gist>
+}>()
+
 const code = defineModel<Code>({
   required: true,
   default: {
@@ -47,7 +52,10 @@ const code = defineModel<Code>({
       :options="MONACO_EDITOR_OPTIONS"
       class="border-2 border-solid bg-gray-100"
       :default-language="code.lang"
-      :language="code.lang"
+      :language="code.lang.toLowerCase()"
     />
+    <small v-if="props.errors?.content">
+      {{ props.errors.content._errors[0] }}
+    </small>
   </div>
 </template>

@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { ZodFormattedError } from 'zod';
 
 import type { User } from '@/modules/users/entities/user';
-import type { Code, Gist, Headline } from '@/modules/gists/entities/gist';
+import type { Code, Gist, Headline } from '~/modules/gist/entities/gist';
 
 const schema = z.object({
   title: z.string().min(2, 'Título é obrigatório'),
@@ -46,9 +46,12 @@ export function useGistCreate({ user }: UseGistCreateOptions) {
   };
 
   const create = async () => {
+    if (!userId.value) {
+      return;
+    }
     loading.value = true;
     try {
-      await services.gist.create({
+      const { id } = await services.gist.create({
         ...headline.value,
         ...code.value,
         profileId: userId.value!,
@@ -58,6 +61,7 @@ export function useGistCreate({ user }: UseGistCreateOptions) {
         summary: 'Sucesso!',
         detail: 'Gist criado com sucesso!',
       });
+      return { id };
     } catch (error: any) {
       logAndTrack(error);
       toast.add({

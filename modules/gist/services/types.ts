@@ -1,4 +1,4 @@
-import type { Code, Headline } from '@/modules/gists/entities/gist';
+import type { Code, Headline } from '~/modules/gist/entities/gist';
 
 export type CreateOptions = Headline &
   Code & {

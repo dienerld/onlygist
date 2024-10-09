@@ -4,7 +4,7 @@
 import getProgrammingLanguage from 'detect-programming-language'
 import type { ZodFormattedError } from 'zod'
 
-import type { Gist, Headline } from '@/modules/gists/entities/gist'
+import type { Gist, Headline } from '~/modules/gist/entities/gist'
 
 const priceOptions = [
   { value: 0, label: 'Gratis' },

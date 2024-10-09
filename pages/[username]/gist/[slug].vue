@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MoreDetail } from '@/modules/gists/screens/more-detail'
+import { MoreDetail } from '~/modules/gist/screens/more-detail'
 
 </script>
 

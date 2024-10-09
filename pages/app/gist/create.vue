@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CreateNew } from '@/modules/gists/screens/create-new'
+import { CreateNew } from '~/modules/gist/screens/create-new'
 
 definePageMeta({
   layout: 'admin',

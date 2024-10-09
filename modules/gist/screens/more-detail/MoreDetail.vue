@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PublicHeadline } from '../../components/public-headline'
 import { DialogPaymentSuccess as LazyDialogPaymentSuccess } from '@/modules/payments/components/dialog-payment-success'
-import { GistCodeSnippet } from '@/modules/gists/components/code-snippet'
+import { GistCodeSnippet } from '~/modules/gist/components/code-snippet'
 import { DialogPaymentError as LazyDialogPaymentError } from '~/modules/payments/components/dialog-payment-error'
 
 const route = useRoute()

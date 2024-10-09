@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PublicHeadline } from '../../components/public-headline'
 import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
-import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '@/modules/gists/components/card'
+import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '~/modules/gist/components/card'
 
 const route = useRoute()
 const router = useRouter()

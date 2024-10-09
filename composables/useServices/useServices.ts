@@ -1,7 +1,7 @@
 import type { Database } from '~/libs/supabase/schema';
 import { AuthGithubService } from '~/modules/auth/services/service';
 import { UserServices } from '~/modules/users/services';
-import { GistServices } from '~/modules/gists/services';
+import { GistServices } from '~/modules/gist/services';
 
 export function useServices() {
   const supabase = useSupabaseClient<Database>();
