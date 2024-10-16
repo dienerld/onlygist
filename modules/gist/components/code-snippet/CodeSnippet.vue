@@ -21,28 +21,28 @@ const props = withDefaults(defineProps<{
   lang: 'typescript'
 })
 
-const loading = ref(true)
+const syntaxLoading = ref(true)
 const htmlCode = ref('')
 
 const registerSyntaxHighlight = async() => {
-  loading.value = true
+  syntaxLoading.value = true
   const starryNight = await createStarryNight(common)
   const scope = starryNight.flagToScope(props.lang)
-  const tree = starryNight.highlight(props.code, scope!)
+  const tree = starryNight.highlight(props.code || DEFAULT_CODE_SNIPPET, scope!)
   htmlCode.value = toHtml(tree)
-  loading.value = false
+  syntaxLoading.value = false
 }
 
-onMounted(() => {
+watch(() => props.code, () => {
   registerSyntaxHighlight()
-})
+}, { immediate: true })
 
 </script>
 
 <template>
-  <Loader :loading="props.loading || loading">
+  <Loader :loading="props.loading || syntaxLoading">
     <div v-if="isPaid" class="relative w-full">
-      <span class="absolute left-[50%] top-[43%] z-50">
+      <span class="absolute left-1/2 top-[43%] z-50">
         <i class="pi pi-lock to-gray-700 text-3xl" />
       </span>
       <pre
