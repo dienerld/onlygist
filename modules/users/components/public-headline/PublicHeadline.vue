@@ -8,9 +8,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   name: 'Usuário anônimo',
   avatarUrl: 'https://avatars.githubusercontent.com/u/1792733?v=4',
-  bio: 'Software Engineer',
-  city: 'São João del Rei',
-  state: 'MG'
+  bio: undefined,
+  city: undefined,
+  state: undefined
 })
 </script>
 

@@ -1,10 +1,12 @@
+import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '~/libs/supabase/schema';
 import { AuthGithubService } from '~/modules/auth/services/service';
 import { UserServices } from '~/modules/users/services';
 import { GistServices } from '~/modules/gist/services';
+import { reportServices } from '~/modules/reports/services/services';
 
 export function useServices() {
-  const supabase = useSupabaseClient<Database>();
+  const supabase: SupabaseClient<Database> = useSupabaseClient<Database>();
   const config = useRuntimeConfig();
 
   return {
@@ -13,5 +15,6 @@ export function useServices() {
     }),
     user: UserServices(supabase),
     gist: GistServices(supabase),
+    report: reportServices(supabase),
   };
 }

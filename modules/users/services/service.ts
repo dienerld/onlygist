@@ -3,7 +3,11 @@ import type { Database } from '~/libs/supabase/schema';
 
 import type { User } from '@/modules/users/entities/user';
 
-import { getMyselfAdapter, searchAddressByZipCodeAdapter } from './adapters';
+import {
+  getMyselfAdapter,
+  readOneByUsernameAdapter,
+  searchAddressByZipCodeAdapter,
+} from './adapters';
 import type { SearchAddressResponse } from './types';
 
 export const UserServices = (client: SupabaseClient<Database>) => ({
@@ -46,5 +50,17 @@ export const UserServices = (client: SupabaseClient<Database>) => ({
       .eq('id', id);
 
     return { id };
+  },
+
+  async readOneByUsername(username: string) {
+    const response = await client
+      .from('profiles')
+      .select()
+      .eq('username', username)
+      .limit(1)
+      .single();
+
+    const user = readOneByUsernameAdapter(response.data);
+    return user;
   },
 });

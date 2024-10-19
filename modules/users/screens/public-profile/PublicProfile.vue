@@ -1,50 +1,65 @@
 <script setup lang="ts">
-import { PublicHeadline } from '../../components/public-headline'
-import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
-import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '~/modules/gist/components/card'
+import { PublicHeadline, PublicHeadlineEmpty } from '@/modules/users/components/public-headline'
+import { useGistsReports } from '~/modules/reports/composables/use-gists-reports/useGistsReports'
+import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
+import { useScroll } from '@vueuse/core'
 
 const route = useRoute()
 const router = useRouter()
-const load = ref(false)
+const loading = ref(false)
+const services = useServices()
+
+const { data: user } = await useAsyncData('user-public-profile', () => services.user.readOneByUsername(route.params.username as string))
+const {
+  loading: loadingReports,
+  totalGists,
+  totalFreeGists,
+  totalPaidGists
+} = useGistsReports({ user, isMyself: false })
+
+const {
+  gists,
+  fetchMoreGistsByUsername: fetchMoreGists
+} = useGistList({ username: route.params.username as string })
+
+const { arrivedState } = useScroll(window, { offset: { bottom: 100 } })
 
 const handleNavigateToDetail = (id: string) => {
   const { username } = route.params
   router.push(`/${username}/gist/${id}`)
 }
 
-const gists = [
-  {
-    id: '0',
-    title: 'useCurrentUser.ts',
-    description: 'Hook para controlar o **usuário** logado',
-    price: 10,
-    lang: 'typescript'
-  },
-  {
-    id: '1',
-    title: 'useStorage.ts',
-    description: 'Hook para controlar o **armazenamento** local',
-    price: 0,
-    lang: 'typescript'
-
-  }
-]
+watch(
+  () => arrivedState.bottom,
+  (value) => {
+    if (!value) { return }
+    fetchMoreGists()
+  })
 
 </script>
 
 <template>
-  <PublicHeadline name="Diener Dornelas" avatar-url="https://github.com/dienerld.png" />
-  <WidgetGroup>
-    <WidgetGroupLoader :loading="load" :amount="3">
-      <WidgetCondensed :value="8" label="Gists no total" />
-      <WidgetCondensed :value="4" label="Gists gratuitos" />
-      <WidgetCondensed :value="4" label="Gists pagos" />
+  <PublicHeadline
+    v-if="user"
+    :name="user.name"
+    :avatar-url="user.avatarUrl"
+    :bio="user.bio"
+    :city="user.address?.city"
+    :state="user.address?.state"
+  />
+  <PublicHeadlineEmpty v-else />
+
+  <WidgetGroup v-if="user">
+    <WidgetGroupLoader :loading="loadingReports" :amount="3">
+      <WidgetCondensed :value="totalGists" label="Gists no total" />
+      <WidgetCondensed :value="totalFreeGists" label="Gists gratuitos" />
+      <WidgetCondensed :value="totalPaidGists" label="Gists pagos" />
     </WidgetGroupLoader>
   </WidgetGroup>
 
-  <WidgetDefault title="Todos os gists" sub-title="any">
+  <WidgetDefault v-if="gists.length > 0" title="Todos os gists">
     <GistCardGroup>
-      <GistCardGroupLoader :loading="load" :amount="5">
+      <GistCardGroupLoader :loading="loading" :amount="5">
         <GistCardItem
           v-for="gist in gists"
           :id="gist.id"

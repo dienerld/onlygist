@@ -23,6 +23,32 @@ export function readOneAdapter(data: ReadOneRow | null): GistVirtual | null {
       username: data.profiles?.username,
     },
     content: data.content,
-    createdAt: data.created_at,
+    createdAt: new Date(data.created_at),
   };
+}
+
+export type ReadAllRow = GistTable['Row'] & {
+  profiles: ProfileTable['Row'] | null;
+};
+
+export function readAllAdapter(data: ReadAllRow[] | null): GistVirtual[] {
+  if (!data) return [];
+
+  return data.map((item) => {
+    return {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      profileId: item.profiles?.id || '',
+      lang: item.lang,
+      price: item.price,
+      isPaid: item.is_paid,
+      profiles: {
+        id: item.profiles?.id,
+        username: item.profiles?.username,
+      },
+      content: item.content,
+      createdAt: new Date(item.created_at),
+    };
+  });
 }

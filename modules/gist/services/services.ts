@@ -3,10 +3,38 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import type { Database } from '~/libs/supabase/schema';
 
-import type { CreateOptions } from './types';
-import { readOneAdapter, type ReadOneRow } from './adapters';
+import type { CreateOptions, ReadAllOptions, UpdateOptions } from './types';
+import {
+  readAllAdapter,
+  readOneAdapter,
+  type ReadAllRow,
+  type ReadOneRow,
+} from './adapters';
 
 export const GistServices = (client: SupabaseClient<Database>) => ({
+  async readAll({ username, from = 0, to = 10 }: ReadAllOptions) {
+    const [total, gists] = await Promise.all([
+      // count
+      client
+        .from('gists')
+        .select('profiles!inner(id, username)', { count: 'exact', head: true })
+        .eq('profiles.username', username),
+
+      // data
+      client
+        .from('gists')
+        .select(
+          'id, title, description, lang, price, is_paid, created_at, profiles!inner(id, username)',
+        )
+        .eq('profiles.username', username)
+        .order('created_at', { ascending: true })
+        .range(from, to)
+        .returns<ReadAllRow[]>(),
+    ]);
+
+    return { total: total.count ?? 0, results: readAllAdapter(gists.data) };
+  },
+
   async create({
     title,
     content,
@@ -43,6 +71,7 @@ export const GistServices = (client: SupabaseClient<Database>) => ({
 
     return readOneAdapter(response.data);
   },
+
   async readOneContent(id: string) {
     const response = await client
       .from('gists')
@@ -52,5 +81,28 @@ export const GistServices = (client: SupabaseClient<Database>) => ({
       .single();
 
     return readOneAdapter(response.data);
+  },
+
+  async update(id: string, data: UpdateOptions) {
+    const isPaid = data.price !== 0;
+
+    await client
+      .from('gists')
+      .update({
+        title: data.title,
+        description: data.description,
+        lang: data.lang,
+        price: data.price,
+        content: data.content,
+        is_paid: isPaid,
+      })
+      .match({ id });
+
+    return { id };
+  },
+
+  async delete(id: string) {
+    await client.from('gists').delete().match({ id });
+    return { id };
   },
 });

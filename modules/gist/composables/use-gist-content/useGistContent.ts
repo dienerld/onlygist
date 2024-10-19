@@ -14,7 +14,10 @@ export function useGistContent({ gist }: UseGistContentOptions) {
 
   async function fetchGistContent() {
     if (!gist.value) return;
-    if (isPaid.value) return;
+    if (isPaid.value) {
+      gistContent.value = '';
+      return;
+    }
     loading.value = true;
     try {
       const response = await services.gist.readOneContent(gistId.value);

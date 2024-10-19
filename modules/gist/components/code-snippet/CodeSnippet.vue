@@ -22,9 +22,10 @@ const props = withDefaults(defineProps<{
 })
 
 const syntaxLoading = ref(true)
-const htmlCode = ref('')
+const htmlCode = ref<string | null>('')
 
 const registerSyntaxHighlight = async() => {
+  htmlCode.value = null
   syntaxLoading.value = true
   const starryNight = await createStarryNight(common)
   const scope = starryNight.flagToScope(props.lang)
