@@ -1,1 +1,1 @@
-export { default as EditProfile } from './edit-profile.vue';
+export { default as EditProfile } from './edit-profile.vue'

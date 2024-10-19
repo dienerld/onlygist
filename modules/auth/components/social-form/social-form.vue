@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const emit = defineEmits<{
-  (e: 'wants-login-with-github'): void
+const props = defineProps<{
+  loading: boolean
 }>()
 
-const props = defineProps<{
-loading: boolean
+const emit = defineEmits<{
+  (e: 'wants-login-with-github'): void
 }>()
 </script>
 
@@ -19,7 +19,7 @@ loading: boolean
       label="Continuar com Github"
       icon="pi pi-github"
       icon-pos="right"
-      @click="()=>emit('wants-login-with-github')"
+      @click="() => emit('wants-login-with-github')"
     />
   </div>
 </template>

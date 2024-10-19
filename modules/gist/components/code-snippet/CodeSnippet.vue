@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { createStarryNight, common } from '@wooorm/starry-night'
+import { common, createStarryNight } from '@wooorm/starry-night'
 import { toHtml } from 'hast-util-to-html'
-import '@wooorm/starry-night/style/light'
 import Loader from './Loader.vue'
+import '@wooorm/starry-night/style/light'
 
 const DEFAULT_CODE_SNIPPET = `
 const message = 'Você precisa pagar para ter acesso a esse Gist :P'
 console.log(message)
 `
 
+// eslint-disable-next-line vue/define-macros-order
 const props = withDefaults(defineProps<{
   isPaid: boolean
   loading: boolean
@@ -18,13 +19,13 @@ const props = withDefaults(defineProps<{
   isPaid: false,
   loading: false,
   code: DEFAULT_CODE_SNIPPET,
-  lang: 'typescript'
+  lang: 'typescript',
 })
 
 const syntaxLoading = ref(true)
 const htmlCode = ref<string | null>('')
 
-const registerSyntaxHighlight = async() => {
+async function registerSyntaxHighlight() {
   htmlCode.value = null
   syntaxLoading.value = true
   const starryNight = await createStarryNight(common)
@@ -37,7 +38,6 @@ const registerSyntaxHighlight = async() => {
 watch(() => props.code, () => {
   registerSyntaxHighlight()
 }, { immediate: true })
-
 </script>
 
 <template>
@@ -47,7 +47,7 @@ watch(() => props.code, () => {
         <i class="pi pi-lock to-gray-700 text-3xl" />
       </span>
       <pre
-        :class="{'blur-sm': props.isPaid}"
+        :class="{ 'blur-sm': props.isPaid }"
         class="w-full select-none overflow-x-hidden rounded bg-gray-200 p-5"
         v-html="htmlCode"
       />

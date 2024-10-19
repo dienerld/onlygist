@@ -1,1 +1,1 @@
-export { default as CodeEdit } from './code-edit.vue';
+export { default as CodeEdit } from './code-edit.vue'

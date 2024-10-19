@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Header, HeaderLoader } from '~/modules/auth/components/header'
-import { Header as HeaderNotAuthenticated } from '~/modules/landing-page/components/header'
 import { useSession } from '~/modules/auth/composables/use-session/useSession'
+import { Header as HeaderNotAuthenticated } from '~/modules/landing-page/components/header'
 import { useMyself } from '~/modules/users/composables/use-myself/useMyself'
 
 const router = useRouter()
@@ -23,7 +23,7 @@ const profilePic = computed(() => {
   return user.value.avatarUrl
 })
 
-const handleLogout = async() => {
+async function handleLogout() {
   const { error } = await session.logout()
 
   if (!error) {
@@ -31,10 +31,9 @@ const handleLogout = async() => {
   }
 }
 
-const handleWantsBeCreator = () => {
+function handleWantsBeCreator() {
   router.push('/auth/login')
 }
-
 </script>
 
 <template>

@@ -1,23 +1,23 @@
-import type { Gist } from '~/modules/gist/entities/gist';
+import type { Gist } from '~/modules/gist/entities/gist'
 
 export interface Sale {
-  id: string;
-  gistId: string;
-  customerEmail: string;
-  createdAt: Date;
+  id: string
+  gistId: string
+  customerEmail: string
+  createdAt: Date
 }
 
 export interface SaleVirtual extends Sale {
-  gists: Partial<Gist>;
+  gists: Partial<Gist>
 }
 
 export function applyPayoutFeesToGrossValue(grossValue: number): number {
-  const STRIPE_TRANSFER_TAX = 0.0025;
-  const FIXED_STRIPE_TRANSFER_ = 7;
+  const STRIPE_TRANSFER_TAX = 0.0025
+  const FIXED_STRIPE_TRANSFER_ = 7
 
-  const fee = grossValue * STRIPE_TRANSFER_TAX;
-  const totalValue = grossValue - fee;
-  const netValue = totalValue - FIXED_STRIPE_TRANSFER_;
+  const fee = grossValue * STRIPE_TRANSFER_TAX
+  const totalValue = grossValue - fee
+  const netValue = totalValue - FIXED_STRIPE_TRANSFER_
 
-  return netValue;
+  return netValue
 }

@@ -17,7 +17,7 @@ const emit = defineEmits<{
         label="Continuar como creator"
         icon-pos="right"
         icon="pi pi-arrow-right"
-        @click="()=>emit('wants-be-creator')"
+        @click="() => emit('wants-be-creator')"
       />
     </div>
   </section>

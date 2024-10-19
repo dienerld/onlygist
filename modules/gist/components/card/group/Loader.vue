@@ -4,9 +4,8 @@ const props = withDefaults(defineProps<{
   amount: number
 }>(), {
   loading: false,
-  amount: 3
+  amount: 3,
 })
-
 </script>
 
 <template>

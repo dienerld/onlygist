@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Panel } from '~/modules/reports/screens'
+
 useHead({
-  title: 'Painel | OnlyGist'
+  title: 'Painel | OnlyGist',
 })
 
 definePageMeta({
   layout: 'admin',
-  middleware: ['auth']
+  middleware: ['auth'],
 })
-
 </script>
 
 <template>

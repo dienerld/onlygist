@@ -1,15 +1,16 @@
-import type { Database } from '~/libs/supabase/schema';
-import type { GistVirtual } from '~/modules/gist/entities/gist';
+import type { Database } from '~/libs/supabase/schema'
+import type { GistVirtual } from '~/modules/gist/entities/gist'
 
-type ProfileTable = Database['public']['Tables']['profiles'];
-type GistTable = Database['public']['Tables']['gists'];
+type ProfileTable = Database['public']['Tables']['profiles']
+type GistTable = Database['public']['Tables']['gists']
 
 export type ReadOneRow = GistTable['Row'] & {
-  profiles: ProfileTable['Row'] | null;
-};
+  profiles: ProfileTable['Row'] | null
+}
 
 export function readOneAdapter(data: ReadOneRow | null): GistVirtual | null {
-  if (!data) return null;
+  if (!data)
+    return null
   return {
     id: data.id,
     title: data.title,
@@ -24,15 +25,16 @@ export function readOneAdapter(data: ReadOneRow | null): GistVirtual | null {
     },
     content: data.content,
     createdAt: data.created_at ? new Date(data.created_at) : new Date(),
-  };
+  }
 }
 
 export type ReadAllRow = GistTable['Row'] & {
-  profiles: ProfileTable['Row'] | null;
-};
+  profiles: ProfileTable['Row'] | null
+}
 
 export function readAllAdapter(data: ReadAllRow[] | null): GistVirtual[] {
-  if (!data) return [];
+  if (!data)
+    return []
 
   return data.map((item) => {
     return {
@@ -49,6 +51,6 @@ export function readAllAdapter(data: ReadAllRow[] | null): GistVirtual[] {
       },
       content: item.content,
       createdAt: new Date(item.created_at),
-    };
-  });
+    }
+  })
 }

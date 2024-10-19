@@ -1,9 +1,9 @@
-import { marked } from 'marked';
+import { marked } from 'marked'
 
 export function useMarkdown() {
   const render = (text: string) => {
-    return marked.parse(text);
-  };
+    return marked.parse(text)
+  }
 
-  return { render };
+  return { render }
 }

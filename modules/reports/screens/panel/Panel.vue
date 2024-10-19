@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
 import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '@/modules/gist/components/card'
+import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
 
-import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
 import { useGistsReports } from '@/modules/reports/composables/use-gists-reports/useGistsReports'
-import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
+import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
 import { useScroll } from '@vueuse/core'
+import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,16 +16,16 @@ const {
   totalGists,
   totalFreeGists,
   totalPaidGists,
-  totalSoldGists
+  totalSoldGists,
 } = useGistsReports({ user, isMyself: true })
 
 const {
   gists,
   loading: loadingGists,
-  fetchMoreGistsByUsername: fetchMoreGists
+  fetchMoreGistsByUsername: fetchMoreGists,
 } = useGistList({ username: user.value.username })
 
-const handleNavigateToDetail = (id: string) => {
+function handleNavigateToDetail(id: string) {
   const { username } = route.params
   router.push(`/${username}/gist/${id}`)
 }
@@ -34,10 +34,12 @@ const { arrivedState } = useScroll(window, { offset: { bottom: 100 } })
 watch(
   () => arrivedState.bottom,
   (value) => {
-    if (!value) { return }
+    if (!value) {
+      return
+    }
     fetchMoreGists()
-  })
-
+  },
+)
 </script>
 
 <template>

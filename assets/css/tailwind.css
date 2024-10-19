@@ -1,8 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tailwind-base, primevue, tailwind-utilities;
 
-:root {
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+
+/* :root {
   --primary-50: 255 204 166;
   --primary-100: 255 183 128;
   --primary-200: 255 158 92;
@@ -26,6 +34,140 @@
   --surface-800: 30 41 59;
   --surface-900: 15 23 42;
   --surface-950: 3 6 23;
+} */
+
+/* Primary and Surface Palettes */
+:root {
+  /* Paleta de cores baseada em #020617 */
+  --p-primary-50: #e0e5e0;
+  /* Muito claro */
+  --p-primary-100: #c1c6b9;
+  /* Claro */
+  --p-primary-200: #a3ad8e;
+  /* Um pouco mais escuro */
+  --p-primary-300: #879a66;
+  /* Médio claro */
+  --p-primary-400: #6a8744;
+  /* Médio */
+  --p-primary-500: #5c7540;
+  /* Principal (escurecido) */
+  --p-primary-600: #4a6234;
+  /* Médio escuro */
+  --p-primary-700: #404f2b;
+  /* Escuro */
+  --p-primary-800: #363f24;
+  /* Mais escuro */
+  --p-primary-900: #2c2f1a;
+  /* Muito escuro */
+  --p-primary-950: #1b1c10;
+  /* Quase preto */
+
+  --p-surface-0: #ffffff;
+  /* Branco */
+  --p-surface-50: #f0f2f0;
+  /* Muito claro */
+  --p-surface-100: #d5d8d5;
+  /* Claro */
+  --p-surface-200: #b0b4a9;
+  /* Um pouco mais escuro */
+  --p-surface-300: #8c9580;
+  /* Médio claro */
+  --p-surface-400: #747e67;
+  /* Médio */
+  --p-surface-500: #5c7540;
+  /* Superfície média (igual ao primary-500) */
+  --p-surface-600: #4a6234;
+  /* Médio escuro (igual ao primary-600) */
+  --p-surface-700: #404f2b;
+  /* Escuro (igual ao primary-700) */
+  --p-surface-800: #363f24;
+  /* Mais escuro (igual ao primary-800) */
+  --p-surface-900: #2c2f1a;
+  /* Muito escuro (igual ao primary-900) */
+  --p-surface-950: #1b1c10;
+  /* Quase preto (igual ao primary-950) */
+  --p-content-border-radius: 8px;
+}
+
+/* Light Mode */
+:root {
+  --p-primary-color: var(--p-primary-500);
+  --p-primary-contrast-color: var(--p-surface-0);
+  --p-primary-hover-color: var(--p-primary-600);
+  --p-primary-active-color: var(--p-primary-700);
+  --p-content-border-color: var(--p-surface-200);
+  --p-content-hover-background: var(--p-surface-100);
+  --p-content-hover-color: var(--p-surface-800);
+  --p-highlight-background: var(--p-primary-50);
+  --p-highlight-color: var(--p-primary-700);
+  --p-highlight-focus-background: var(--p-primary-100);
+  --p-highlight-focus-color: var(--p-primary-800);
+  --p-text-color: var(--p-surface-700);
+  --p-text-hover-color: var(--p-surface-800);
+  --p-text-muted-color: var(--p-surface-500);
+  --p-text-hover-muted-color: var(--p-surface-600);
+}
+
+/*
+ * Dark Mode
+ * Change the .p-dark to match the darkMode in tailwind.config.
+ * For example;
+ *  darkMode: ['selector', '[class*="app-dark"]']
+ *  should match;
+ * :root.app-dark
+*/
+:root.p-dark {
+  --p-primary-color: var(--p-primary-400);
+  --p-primary-contrast-color: var(--p-surface-900);
+  --p-primary-hover-color: var(--p-primary-300);
+  --p-primary-active-color: var(--p-primary-200);
+  --p-content-border-color: var(--p-surface-700);
+  --p-content-hover-background: var(--p-surface-800);
+  --p-content-hover-color: var(--p-surface-0);
+  --p-highlight-background: color-mix(in srgb, var(--p-primary-400), transparent 84%);
+  --p-highlight-color: rgba(255, 255, 255, 0.87);
+  --p-highlight-focus-background: color-mix(in srgb, var(--p-primary-400), transparent 76%);
+  --p-highlight-focus-color: rgba(255, 255, 255, 0.87);
+  --p-text-color: var(--p-surface-0);
+  --p-text-hover-color: var(--p-surface-0);
+  --p-text-muted-color: var(--p-surface-400);
+  --p-text-hover-muted-color: var(--p-surface-300);
+}
+
+:root {
+  --p-primary-color: var(--primary-500);
+  --p-primary-contrast-color: var(--surface-0);
+  --p-primary-hover-color: var(--primary-600);
+  --p-primary-active-color: var(--primary-700);
+  --p-content-border-color: var(--surface-200);
+  --p-content-hover-background: var(--surface-100);
+  --p-content-hover-color: var(--surface-800);
+  --p-highlight-background: var(--primary-50);
+  --p-highlight-color: var(--primary-700);
+  --p-highlight-focus-background: var(--primary-100);
+  --p-highlight-focus-color: var(--primary-800);
+  --p-text-color: var(--surface-700);
+  --p-text-hover-color: var(--surface-800);
+  --p-text-muted-color: var(--surface-500);
+  --p-text-hover-muted-color: var(--surface-600);
+}
+
+:root.p-dark {
+  --p-primary-color: var(--primary-400);
+  --p-primary-contrast-color: var(--surface-900);
+  --p-primary-hover-color: var(--primary-300);
+  --p-primary-active-color: var(--primary-200);
+  --p-content-border-color: var(--surface-700);
+  --p-content-hover-background: var(--surface-800);
+  --p-content-hover-color: var(--surface-0);
+  --p-highlight-background: color-mix(in srgb, var(--primary-400), transparent 84%);
+  --p-highlight-color: rgba(255, 255, 255, 0.87);
+  --p-highlight-focus-background: color-mix(in srgb, var(--primary-400), transparent 76%);
+  --p-highlight-focus-color: rgba(255, 255, 255, 0.87);
+  --p-text-color: var(--surface-0);
+  --p-text-hover-color: var(--surface-0);
+  --p-text-muted-color: var(--surface-400);
+  --p-text-hover-muted-color: var(--surface-300);
 }
 
 html,
@@ -38,9 +180,21 @@ body,
   @apply font-sans;
 }
 
-@layer utilities {
-  .f-center {
-    @apply flex items-center justify-center;
-  }
+/* Change scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--p-surface-300);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--p-surface-400);
 }

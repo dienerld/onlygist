@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const router = useRouter()
-const navigateToPanel = async() => {
+async function navigateToPanel() {
   await new Promise(resolve => setTimeout(resolve, 2_000))
   router.push('/app/panel')
 }

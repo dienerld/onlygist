@@ -1,1 +1,1 @@
-export { default as DialogPaymentError } from './DialogPaymentError.vue';
+export { default as DialogPaymentError } from './DialogPaymentError.vue'

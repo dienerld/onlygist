@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   avatarUrl: 'https://avatars.githubusercontent.com/u/1792733?v=4',
   bio: undefined,
   city: undefined,
-  state: undefined
+  state: undefined,
 })
 </script>
 

@@ -3,7 +3,7 @@ import { Header, Hero } from '../../components'
 
 const router = useRouter()
 
-const handleLogin = () => {
+function handleLogin() {
   router.push('/auth/login')
 }
 
@@ -11,8 +11,8 @@ defineOgImage({
   component: 'Main',
   props: {
     title: 'OnlyGist',
-    description: 'Compartilhe e monetize trechos de código. Ganhe uma renda extra com os códigos que você faz no dia-a-dia'
-  }
+    description: 'Compartilhe e monetize trechos de código. Ganhe uma renda extra com os códigos que você faz no dia-a-dia',
+  },
 })
 </script>
 

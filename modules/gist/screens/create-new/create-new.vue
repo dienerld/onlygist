@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
-import { HeadlineEdit } from '~/modules/gist/components/headline-edit'
 import { CodeEdit } from '~/modules/gist/components/code-edit'
+import { HeadlineEdit } from '~/modules/gist/components/headline-edit'
 import { useGistCreate } from '~/modules/gist/composables/use-gist-create/useGistCreate'
 
 const router = useRouter()
 const { user } = inject(myselfKey)!
 const { code, create, errors, headline, loading, safeParse } = useGistCreate({ user })
 
-const handleLanguageChange = (lang: string) => {
-  console.log('lang', lang)
-
+function handleLanguageChange(lang: string) {
   code.value.lang = lang
 }
-const handleCreateGist = async() => {
+async function handleCreateGist() {
   const isValid = safeParse().success
   if (!isValid) {
-    console.log(errors.value)
-
     return
   }
 
@@ -26,7 +22,6 @@ const handleCreateGist = async() => {
     router.push(`/${user.value?.username}/gist/${response.id}`)
   }
 }
-
 </script>
 
 <template>

@@ -2,6 +2,6 @@
   "css.styleSheets": [
     "node_modules/primeicons/primeicons.css"
   ],
-  "eslint.useFlatConfig": false
+  "eslint.useFlatConfig": true
 
 }

@@ -1,1 +1,1 @@
-export { default as CreateNew } from './create-new.vue';
+export { default as CreateNew } from './create-new.vue'

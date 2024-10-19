@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import type { ZodFormattedError } from 'zod'
 import type { Address } from '@/modules/users/entities/address'
+import type { ZodFormattedError } from 'zod'
 
 const props = defineProps<{
   errors?: ZodFormattedError<Address>
-    loading: boolean
+  loading: boolean
 }>()
 
-// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (e: 'trigger-address-search'): void
 }>()
@@ -21,8 +20,8 @@ const address = defineModel<Address>({
     complement: '',
     neighborhood: '',
     city: '',
-    state: ''
-  }
+    state: '',
+  },
 })
 </script>
 

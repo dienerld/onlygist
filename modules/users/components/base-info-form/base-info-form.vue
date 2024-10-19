@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ZodFormattedError } from 'zod'
 import type { User } from '@/modules/users/entities/user'
+import type { ZodFormattedError } from 'zod'
 
 const props = defineProps<{
   errors?: ZodFormattedError<User>
@@ -12,8 +12,8 @@ const user = defineModel<User>({
     name: '',
     site: '',
     bio: '',
-    phone: ''
-  }
+    phone: '',
+  },
 })
 </script>
 

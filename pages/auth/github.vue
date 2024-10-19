@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { OAuthRedirect } from '~/modules/auth/screens'
-useHead({
-  title: 'Redirecionamento | OnlyGist'
-})
 
+useHead({
+  title: 'Redirecionamento | OnlyGist',
+})
 </script>
 
 <template>

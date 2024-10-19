@@ -1,6 +1,5 @@
-import type { User } from '@/modules/users/entities/user'
 import type { Address } from '@/modules/users/entities/address'
-
+import type { User } from '@/modules/users/entities/user'
 
 interface UseAddressUpdateOptions {
   user: Ref<User>
@@ -13,7 +12,7 @@ const INITIAL_ADDRESS = {
   complement: '',
   neighborhood: '',
   city: '',
-  state: ''
+  state: '',
 }
 
 export function useAddressUpdate({ user }: UseAddressUpdateOptions) {
@@ -33,9 +32,11 @@ export function useAddressUpdate({ user }: UseAddressUpdateOptions) {
     try {
       const { data } = await service.user.searchAddressByZipCode(address.value.zipCode)
       address.value = data
-    } catch (error) {
-      logAndTrack("useAddressUpdate", error)
-    } finally {
+    }
+    catch (error) {
+      logAndTrack('useAddressUpdate', error)
+    }
+    finally {
       loading.value = false
     }
   }
@@ -53,5 +54,4 @@ export function useAddressUpdate({ user }: UseAddressUpdateOptions) {
     address,
     searchZipCode,
   }
-
 }

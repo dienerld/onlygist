@@ -1,1 +1,1 @@
-export { default as WidgetCondensed } from './Condensed.vue';
+export { default as WidgetCondensed } from './Condensed.vue'

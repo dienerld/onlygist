@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { render } = useMarkdown()
-
 const props = withDefaults(defineProps<{
   title: string
   lang: string
@@ -10,8 +8,10 @@ const props = withDefaults(defineProps<{
   title: 'currency_format.py',
   lang: 'python',
   description: 'Função para formatar valores _monetários_',
-  author: 'dienerld'
+  author: 'dienerld',
 })
+
+const { render } = useMarkdown()
 
 const description = computed(() => render(props.description))
 </script>

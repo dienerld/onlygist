@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { PublicHeadline, PublicHeadlineEmpty } from '@/modules/users/components/public-headline'
-import { useGistsReports } from '~/modules/reports/composables/use-gists-reports/useGistsReports'
-import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
 import { useScroll } from '@vueuse/core'
 import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '~/modules/gist/components/card'
+import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
 import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '~/modules/reports/components/widget'
+import { useGistsReports } from '~/modules/reports/composables/use-gists-reports/useGistsReports'
 
 const route = useRoute()
 const router = useRouter()
@@ -16,17 +16,17 @@ const {
   loading: loadingReports,
   totalGists,
   totalFreeGists,
-  totalPaidGists
+  totalPaidGists,
 } = useGistsReports({ user, isMyself: false })
 
 const {
   gists,
-  fetchMoreGistsByUsername: fetchMoreGists
+  fetchMoreGistsByUsername: fetchMoreGists,
 } = useGistList({ username: route.params.username as string })
 
 const { arrivedState } = useScroll(window, { offset: { bottom: 100 } })
 
-const handleNavigateToDetail = (id: string) => {
+function handleNavigateToDetail(id: string) {
   const username = route.params.username as string
   router.push(`/${username}/gist/${id}`)
 }
@@ -34,24 +34,27 @@ const handleNavigateToDetail = (id: string) => {
 watch(
   () => arrivedState.bottom,
   (value) => {
-    if (!value) { return }
+    if (!value) {
+      return
+    }
     fetchMoreGists()
-  })
+  },
+)
 
 defineOgImage({
   component: 'PublicProfile',
   props: {
     avatarUrl: user.value?.avatarUrl,
     author: user.value?.name,
-    bio: user.value?.bio
-  }
+    bio: user.value?.bio,
+  },
 })
 
 useSeoMeta({
   title: `${user.value?.name} - @${user.value?.username}`,
   ogTitle: `${user.value?.name} - @${user.value?.username}`,
   description: `Veja os gists feitos por @${user.value?.username}`,
-  ogDescription: `Veja os gists feitos por @${user.value?.username}`
+  ogDescription: `Veja os gists feitos por @${user.value?.username}`,
 })
 </script>
 

@@ -1,53 +1,53 @@
 <script setup lang="ts">
 import type { MenuItem } from 'primevue/menuitem'
 
-const emit = defineEmits<{
-  (e: 'navigate-to-new-gist'): void
-  (e: 'navigate-to-profile-edit'): void
-  (e: 'navigate-to-sales'): void
-  (e: 'navigate-to-reports'): void
-  (e: 'logout'): void
-}>()
-
 const props = defineProps<{
   profilePic?: string
   nickname: string
 }>()
 
-const menu = ref<{toggle: Function} | null>(null)
+const emit = defineEmits<{
+  (e: 'navigateToNewGist'): void
+  (e: 'navigateToProfileEdit'): void
+  (e: 'navigateToSales'): void
+  (e: 'navigateToReports'): void
+  (e: 'logout'): void
+}>()
+
+const menu = ref<{ toggle: (e: Event) => void } | null>(null)
 
 const items: MenuItem[] = [
   {
     label: 'Painel',
     icon: 'pi pi-chart-line',
-    command: () => emit('navigate-to-reports')
+    command: () => emit('navigateToReports'),
   },
   {
     label: 'Novo Gist',
     icon: 'pi pi-plus',
-    command: () => emit('navigate-to-new-gist')
-  }, {
+    command: () => emit('navigateToNewGist'),
+  },
+  {
     label: 'Vendas',
     icon: 'pi pi-shopping-cart',
-    command: () => emit('navigate-to-sales')
+    command: () => emit('navigateToSales'),
   },
   {
     label: 'Editar Perfil',
     icon: 'pi pi-user-edit',
-    command: () => emit('navigate-to-profile-edit')
+    command: () => emit('navigateToProfileEdit'),
   },
   {
-    separator: true
+    separator: true,
   },
   {
     label: 'Sair',
     icon: 'pi pi-sign-out',
-    command: () => emit('logout')
-  }
+    command: () => emit('logout'),
+  },
 ]
 
 const toggleMenu = (e: Event) => menu.value?.toggle(e)
-
 </script>
 
 <template>

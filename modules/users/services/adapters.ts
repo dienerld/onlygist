@@ -1,14 +1,14 @@
-import type { Address } from '../entities/address';
-import type { User } from '../entities/user';
-import type { Database } from '~/libs/supabase/schema';
-import type { SearchAddressResponse } from './types';
+import type { Address } from '../entities/address'
+import type { User } from '../entities/user'
+import type { SearchAddressResponse } from './types'
+import type { Database } from '~/libs/supabase/schema'
 
-type ProfileTable = Database['public']['Tables']['profiles'];
-type Row = ProfileTable['Row'];
+type ProfileTable = Database['public']['Tables']['profiles']
+type Row = ProfileTable['Row']
 
 export function getMyselfAdapter(data: Row | null): User | null {
   if (!data) {
-    return null;
+    return null
   }
 
   return {
@@ -21,7 +21,7 @@ export function getMyselfAdapter(data: Row | null): User | null {
     site: data.site ?? undefined,
     address: data.address as unknown as Address,
     createdAt: new Date(data.created_at),
-  };
+  }
 }
 
 export function searchAddressByZipCodeAdapter(
@@ -35,12 +35,12 @@ export function searchAddressByZipCodeAdapter(
     complement: data.complemento,
     street: data.logradouro,
     number: '',
-  };
+  }
 }
 
 export function readOneByUsernameAdapter(data: Row | null): User | null {
   if (!data) {
-    return null;
+    return null
   }
 
   return {
@@ -53,5 +53,5 @@ export function readOneByUsernameAdapter(data: Row | null): User | null {
     site: data.site ?? undefined,
     address: data.address as unknown as Address,
     createdAt: new Date(data.created_at),
-  };
+  }
 }

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-const emit = defineEmits<{
-  (event: 'tap', id: string): void
-}>()
-
-const { render } = useMarkdown()
 const props = withDefaults(defineProps<{
   id: string
   title: string
@@ -15,9 +10,14 @@ const props = withDefaults(defineProps<{
   title: 'useCurrentUser.ts',
   description: 'Hook para controlar o **usuário** logado',
   price: 10,
-  lang: 'typescript'
+  lang: 'typescript',
 })
 
+const emit = defineEmits<{
+  (event: 'tap', id: string): void
+}>()
+
+const { render } = useMarkdown()
 const isFree = computed(() => props.price === 0)
 const description = computed(() => render(props.description))
 const amount = computed(() => Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(props.price))

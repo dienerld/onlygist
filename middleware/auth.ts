@@ -1,12 +1,13 @@
-import { useSession } from '@/modules/auth/composables/use-session/useSession';
+import { useSession } from '@/modules/auth/composables/use-session/useSession'
+
 export default defineNuxtRouteMiddleware((to) => {
-  const session = useSession();
-  const isLogged = session.isLogged();
+  const session = useSession()
+  const isLogged = session.isLogged()
 
   if (!isLogged) {
-    if (to.path === '/auth/login') return;
+    if (to.path === '/auth/login')
+      return
 
-    console.log('User not authenticated');
-    return navigateTo('/auth/login');
+    return navigateTo('/auth/login')
   }
-});
+})

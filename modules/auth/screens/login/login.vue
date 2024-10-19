@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { SocialForm } from '../../components/social-form'
+
 const services = useServices()
 const loading = ref(false)
 
-const handleGithubLogin = async() => {
+async function handleGithubLogin() {
   loading.value = true
   await services.auth.signInWithGithub()
 }

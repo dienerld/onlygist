@@ -1,1 +1,1 @@
-export { default as AddressForm } from './address-form.vue';
+export { default as AddressForm } from './address-form.vue'

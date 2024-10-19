@@ -1,18 +1,17 @@
 <script setup lang="ts">
+const props = defineProps<{
+  username: string
+  avatarUrl: string
+}>()
 
 const emit = defineEmits<{
   (e: 'share', username: string): void
   (e: 'navigate-to-profile', username: string): void
 }>()
-
-const props = defineProps<{
-  username: string
-  avatarUrl: string
-}>()
 </script>
 
 <template>
-  <div class="f-center flex-col gap-2">
+  <div class="flex items-center justify-center flex-col gap-2">
     <div class="w-24 overflow-hidden rounded-full md:w-32">
       <img :src="props.avatarUrl" alt="foto perfil usuário">
     </div>

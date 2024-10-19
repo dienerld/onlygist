@@ -2,6 +2,10 @@
 import type { ZodFormattedError } from 'zod'
 import type { Code, Gist } from '~/modules/gist/entities/gist'
 
+const props = defineProps<{
+  errors?: ZodFormattedError<Gist>
+}>()
+
 const DEFAULT_CODE = `
 interface User {
   name: string,
@@ -24,21 +28,17 @@ const MONACO_EDITOR_OPTIONS = {
     top: 10,
     bottom: 10,
     left: 10,
-    right: 10
+    right: 10,
   },
-  fontSize: 15
+  fontSize: 15,
 }
-
-const props = defineProps<{
-  errors?: ZodFormattedError<Gist>
-}>()
 
 const code = defineModel<Code>({
   required: true,
   default: {
     content: DEFAULT_CODE,
-    lang: 'typescript'
-  }
+    lang: 'typescript',
+  },
 })
 </script>
 

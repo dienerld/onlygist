@@ -16,13 +16,13 @@ const props = defineProps<{
     <Column field="gists.title" header="Gist" />
     <Column field="customerEmail" header="Cliente" />
     <Column header="Preço">
-      <template #body="{data}">
+      <template #body="{ data }">
         {{ formatCurrencyToBRL(data.gists.price) }}
       </template>
     </Column>
 
     <Column header="Data">
-      <template #body="{data}">
+      <template #body="{ data }">
         {{ data.createdAt.toLocaleDateString('pt-BR') }}
       </template>
     </Column>

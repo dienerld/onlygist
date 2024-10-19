@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { formatCurrencyToBRL } from '~/libs/currency/format'
 import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
+import { formatCurrencyToBRL } from '~/libs/currency/format'
+import { useSalesList } from '~/modules/payments/composables/use-sales-list/useSalesList'
 import { useSalesReport } from '~/modules/reports/composables/use-sales-report/useSalesReport'
 import { myselfKey } from '~/modules/users/composables/use-myself/useMyself'
-import { useSalesList } from '~/modules/payments/composables/use-sales-list/useSalesList'
 import { SalesTableLoader } from '../../components/sales-table'
 import SalesTable from '../../components/sales-table/SalesTable.vue'
 
@@ -13,12 +13,16 @@ const { loading: loadingRevenue, grossRevenue, netRevenue } = useSalesReport({ u
 const { loading, sales } = useSalesList({ userId: user.value.id })
 
 const localeGrossRevenue = computed(() => {
-  if (!grossRevenue.value) { return 'R$ 0' }
+  if (!grossRevenue.value) {
+    return 'R$ 0'
+  }
 
   return formatCurrencyToBRL(grossRevenue.value)
 })
 const localeNetRevenue = computed(() => {
-  if (!netRevenue.value) { return 'R$ 0' }
+  if (!netRevenue.value) {
+    return 'R$ 0'
+  }
 
   return formatCurrencyToBRL(netRevenue.value)
 })

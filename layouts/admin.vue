@@ -22,14 +22,13 @@ const profilePic = computed(() => {
   return user.value.avatarUrl
 })
 
-const handleLogout = async() => {
+async function handleLogout() {
   const { error } = await session.logout()
 
   if (!error) {
     router.push('/')
   }
 }
-
 </script>
 
 <template>

@@ -1,6 +1,6 @@
-import { z } from 'zod';
-import type { ZodFormattedError } from 'zod';
-import type { User } from '@/modules/users/entities/user';
+import type { User } from '@/modules/users/entities/user'
+import type { ZodFormattedError } from 'zod'
+import { z } from 'zod'
 
 const schema = z.object({
   username: z.string(),
@@ -8,52 +8,55 @@ const schema = z.object({
   site: z.string().url().optional(),
   bio: z.string().optional(),
   phone: z.string().optional(),
-});
+})
 
 interface UseUserUpdateOptions {
-  user: Ref<User>;
+  user: Ref<User>
 }
 
 export function useUserUpdate({ user: userRef }: UseUserUpdateOptions) {
   const { logAndTrack } = useLogger()
-  const toast = useToast();
-  const services = useServices();
+  const toast = useToast()
+  const services = useServices()
 
-  const loading = ref(false);
-  const user = ref<User>();
-  const errors = ref<ZodFormattedError<User>>();
+  const loading = ref(false)
+  const user = ref<User>()
+  const errors = ref<ZodFormattedError<User>>()
 
   const safeParse = () => {
-    const result = schema.safeParse(user.value);
+    const result = schema.safeParse(user.value)
     if (!result.success) {
-      errors.value = result.error.format();
+      errors.value = result.error.format()
     }
 
     return result
   }
 
   const update = async () => {
-    loading.value = true;
+    loading.value = true
     try {
-      if (!user.value) return
-      await services.user.update(user.value.id, user.value);
+      if (!user.value)
+        return
+      await services.user.update(user.value.id, user.value)
       toast.add({
         severity: 'success',
         summary: 'Atualizado com sucesso!',
         detail: 'Dados atualizados com sucesso!',
         life: 3000,
       })
-    } catch (error) {
-      logAndTrack(error);
-    } finally {
-      loading.value = false;
-
+    }
+    catch (error) {
+      logAndTrack(error)
+    }
+    finally {
+      loading.value = false
     }
   }
 
   watchEffect(() => {
-    if (!userRef.value) return;
-    user.value = userRef.value;
+    if (!userRef.value)
+      return
+    user.value = userRef.value
   })
 
   return {
@@ -61,7 +64,6 @@ export function useUserUpdate({ user: userRef }: UseUserUpdateOptions) {
     errors,
     user,
     update,
-    safeParse
+    safeParse,
   }
-
 }

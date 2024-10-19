@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
-import { HeadlineEdit } from '~/modules/gist/components/headline-edit'
-import { CodeEdit } from '~/modules/gist/components/code-edit'
-import { useGistUpdate } from '~/modules/gist/composables/use-gist-update/useGistUpdate'
 import { useGist } from '@/modules/gist/composables/use-gist/useGist'
 import { useGistDelete } from '@/modules/gist/composables/use-gist-delete/useGistDelete'
+import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
+import { CodeEdit } from '~/modules/gist/components/code-edit'
+import { HeadlineEdit } from '~/modules/gist/components/headline-edit'
+import { useGistUpdate } from '~/modules/gist/composables/use-gist-update/useGistUpdate'
 
 const router = useRouter()
 const route = useRoute()
@@ -21,16 +21,16 @@ confirm.require({
   rejectLabel: 'Cancelar',
   acceptLabel: 'Quero excluir!',
   icon: 'pi pi-exclamation-triangle',
-  accept: async() => {
+  accept: async () => {
     await deleteGist()
     router.push(`/${user.value.username}`)
-  }
+  },
 })
 
-const handleLanguageChange = (lang: string) => {
+function handleLanguageChange(lang: string) {
   code.value.lang = lang
 }
-const handleUpdateGist = async() => {
+async function handleUpdateGist() {
   const isValid = safeParse().success
   if (!isValid) {
     return
@@ -42,10 +42,9 @@ const handleUpdateGist = async() => {
   }
 }
 
-const handleDeleteGist = () => {
+function handleDeleteGist() {
 
 }
-
 </script>
 
 <template>

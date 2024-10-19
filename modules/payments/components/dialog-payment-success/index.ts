@@ -1,1 +1,1 @@
-export { default as DialogPaymentSuccess } from './DialogPaymentSuccess.vue';
+export { default as DialogPaymentSuccess } from './DialogPaymentSuccess.vue'

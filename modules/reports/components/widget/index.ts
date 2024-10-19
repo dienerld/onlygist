@@ -1,2 +1,2 @@
-export * from './condensed';
-export * from './group';
+export * from './condensed'
+export * from './group'

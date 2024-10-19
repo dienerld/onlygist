@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Edit } from '~/modules/gist/screens/edit'
+
 useHead({
-  title: 'Editar Gist | OnlyGist'
+  title: 'Editar Gist | OnlyGist',
 })
 definePageMeta({
   layout: 'admin',
-  middleware: ['auth']
+  middleware: ['auth'],
 })
 </script>
 

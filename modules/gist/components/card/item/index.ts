@@ -1,1 +1,1 @@
-export { default as GistCardItem } from './Item.vue';
+export { default as GistCardItem } from './Item.vue'

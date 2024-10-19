@@ -2,7 +2,6 @@
 const props = defineProps<{
   loading: boolean
 }>()
-
 </script>
 
 <template>

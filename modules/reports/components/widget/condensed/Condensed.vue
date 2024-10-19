@@ -3,7 +3,6 @@ const props = defineProps<{
   value: number | string
   label: string
 }>()
-
 </script>
 
 <template>

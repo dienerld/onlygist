@@ -1,17 +1,17 @@
-import type { Code, Headline } from '~/modules/gist/entities/gist';
+import type { Code, Headline } from '~/modules/gist/entities/gist'
 
 export type CreateOptions = Headline &
   Code & {
-    profileId: string;
-  };
+    profileId: string
+  }
 
 export type UpdateOptions = Partial<
   Pick<CreateOptions, 'title' | 'description' | 'lang' | 'price' | 'content'>
->;
+>
 
-export type ReadAllOptions = {
-  username: string;
+export interface ReadAllOptions {
+  username: string
 
-  to?: number;
-  from?: number;
-};
+  to?: number
+  from?: number
+}

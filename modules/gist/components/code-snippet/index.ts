@@ -1,1 +1,1 @@
-export { default as GistCodeSnippet } from './CodeSnippet.vue';
+export { default as GistCodeSnippet } from './CodeSnippet.vue'

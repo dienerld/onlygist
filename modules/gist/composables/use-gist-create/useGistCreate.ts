@@ -1,8 +1,8 @@
-import { z } from 'zod';
-import type { ZodFormattedError } from 'zod';
+import type { User } from '@/modules/users/entities/user'
+import type { ZodFormattedError } from 'zod'
 
-import type { User } from '@/modules/users/entities/user';
-import type { Code, Gist, Headline } from '~/modules/gist/entities/gist';
+import { z } from 'zod'
+import type { Code, Gist, Headline } from '~/modules/gist/entities/gist'
 
 const schema = z.object({
   title: z.string().min(2, 'Título é obrigatório'),
@@ -10,75 +10,78 @@ const schema = z.object({
   price: z.number(),
   content: z.string().min(10, 'Um código é obrigatório'),
   lang: z.string().optional(),
-});
+})
 
 interface UseGistCreateOptions {
-  user: Ref<User | undefined>;
+  user: Ref<User | undefined>
 }
 
 export function useGistCreate({ user }: UseGistCreateOptions) {
-  const { logAndTrack } = useLogger();
-  const toast = useToast();
-  const services = useServices();
-  const loading = ref(false);
-  const errors = ref<ZodFormattedError<Gist>>();
-  const userId = ref<string>();
+  const { logAndTrack } = useLogger()
+  const toast = useToast()
+  const services = useServices()
+  const loading = ref(false)
+  const errors = ref<ZodFormattedError<Gist>>()
+  const userId = ref<string>()
   const headline = ref<Headline>({
     title: '',
     description: '',
     price: 0,
-  });
+  })
   const code = ref<Code>({
     content: '',
     lang: 'typescript',
-  });
+  })
 
   const safeParse = () => {
     const result = schema.safeParse({
       ...headline.value,
       ...code.value,
-    });
+    })
 
     if (!result.success) {
-      errors.value = result.error.format();
+      errors.value = result.error.format()
     }
-    return result;
-  };
+    return result
+  }
 
   const create = async () => {
     if (!userId.value) {
-      return;
+      return
     }
-    loading.value = true;
+    loading.value = true
     try {
       const { id } = await services.gist.create({
         ...headline.value,
         ...code.value,
         profileId: userId.value!,
-      });
+      })
       toast.add({
         severity: 'success',
         summary: 'Sucesso!',
         detail: 'Gist criado com sucesso!',
-      });
-      return { id };
-    } catch (error: any) {
-      logAndTrack(error);
+      })
+      return { id }
+    }
+    catch (error: any) {
+      logAndTrack(error)
       toast.add({
         severity: 'error',
         summary: 'Erro ao criar o gist',
         detail: error.message,
-      });
-      return;
-    } finally {
-      loading.value = false;
+      })
+      return
     }
-  };
+    finally {
+      loading.value = false
+    }
+  }
 
   watchEffect(() => {
-    if (!user.value) return;
-    userId.value = user.value.id;
-  });
+    if (!user.value)
+      return
+    userId.value = user.value.id
+  })
 
   return {
     errors,
@@ -87,5 +90,5 @@ export function useGistCreate({ user }: UseGistCreateOptions) {
     code,
     safeParse,
     create,
-  };
+  }
 }

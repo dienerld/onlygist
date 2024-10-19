@@ -1,17 +1,18 @@
-import type { Database } from '~/libs/supabase/schema';
-import type { SaleVirtual } from '@/modules/payments/entities/Sale/Sale';
+import type { SaleVirtual } from '@/modules/payments/entities/Sale/Sale'
+import type { Database } from '~/libs/supabase/schema'
 
-type RevenueTable = Database['public']['Tables']['sales'];
-type GistTable = Database['public']['Tables']['gists'];
+type RevenueTable = Database['public']['Tables']['sales']
+type GistTable = Database['public']['Tables']['gists']
 
 export type ReadAllSalesRow = RevenueTable['Row'] & {
-  gists: GistTable['Row'] | null;
-};
+  gists: GistTable['Row'] | null
+}
 
 export function readAllSalesAdapter(
   data: ReadAllSalesRow[] | null,
 ): SaleVirtual[] {
-  if (!data) return [];
+  if (!data)
+    return []
 
   return data.map((item) => {
     return {
@@ -23,6 +24,6 @@ export function readAllSalesAdapter(
         price: item.gists?.price ?? 0,
       },
       createdAt: new Date(item.created_at),
-    };
-  });
+    }
+  })
 }
