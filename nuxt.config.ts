@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     'nuxt-primevue',
     '@nuxtjs/google-fonts',
     '@nuxtjs/supabase',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/seo',
   ],
 
   imports: {
