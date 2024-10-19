@@ -2,10 +2,10 @@
 import { PublicHeadline, PublicHeadlineEmpty, PublicHeadlineLoader } from '@/modules/gist/components/public-headline'
 import { DialogPaymentSuccess as LazyDialogPaymentSuccess } from '@/modules/payments/components/dialog-payment-success'
 import { GistCodeSnippet } from '~/modules/gist/components/code-snippet'
-import { DialogPaymentError as LazyDialogPaymentError } from '~/modules/payments/components/dialog-payment-error'
-import type { MySelfProvider } from '~/modules/users/composables/use-myself/types'
-import { myselfKey } from '~/modules/users/composables/use-myself/useMyself'
-import { useSession } from '~/modules/auth/composables/use-session/useSession'
+import { DialogPaymentError as LazyDialogPaymentError } from '@/modules/payments/components/dialog-payment-error'
+import type { MySelfProvider } from '@/modules/users/composables/use-myself/types'
+import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
+import { useSession } from '@/modules/auth/composables/use-session/useSession'
 import { useGistContent } from '@/modules/gist/composables/use-gist-content/useGistContent'
 
 const route = useRoute()
@@ -39,6 +39,21 @@ onMounted(() => {
 
 watch(gist, () => {
   refetch()
+})
+
+defineOgImage({
+  component: 'GistDetail',
+  props: {
+    title: `${gist.value?.title} - @${gist.value?.profiles.username}`,
+    description: gist.value?.description
+  }
+})
+
+useSeoMeta({
+  title: `${gist.value?.title} - @${gist.value?.profiles.username}`,
+  ogTitle: `${gist.value?.title} - @${gist.value?.profiles.username}`,
+  description: `Veja o gist "${gist.value?.title}" feito por @${gist.value?.profiles.username}`,
+  ogDescription: `Veja o gist "${gist.value?.title}" feito por @${gist.value?.profiles.username}`
 })
 </script>
 

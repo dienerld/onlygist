@@ -1,4 +1,4 @@
-import type { GistVirtual } from '../../entities/gist';
+import type { GistVirtual } from '@/modules/gist/entities/gist';
 
 interface UseGistContentOptions {
   gist: Ref<GistVirtual | undefined | null>;

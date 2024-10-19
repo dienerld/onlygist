@@ -19,7 +19,6 @@ export default defineNuxtConfig({
       './composables/useLogger',
     ],
   },
-
   pages: true,
   runtimeConfig: {
     public: {
@@ -34,6 +33,12 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+  ogImage: {
+    fonts: ['Inter:400', 'Inter:500', 'Inter:700', 'Inter:800'],
+  },
+  site: {
+    url: process.env.SITE_URL,
+  },
 
   // Styles
   css: ['primeicons/primeicons.css'],
@@ -42,7 +47,7 @@ export default defineNuxtConfig({
     fontsDir: 'assets/fonts',
     overwriting: true,
     families: {
-      Inter: [300, 500, 800],
+      Inter: [300, 400, 500, 700, 800],
     },
   },
   primevue: {

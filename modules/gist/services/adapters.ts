@@ -23,7 +23,7 @@ export function readOneAdapter(data: ReadOneRow | null): GistVirtual | null {
       username: data.profiles?.username,
     },
     content: data.content,
-    createdAt: new Date(data.created_at),
+    createdAt: data.created_at ? new Date(data.created_at) : new Date(),
   };
 }
 
