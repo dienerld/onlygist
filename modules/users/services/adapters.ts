@@ -15,11 +15,13 @@ export function getMyselfAdapter(data: Row | null): User | null {
     id: data.id,
     username: data.username,
     name: data.name,
+    email: data.email,
     avatarUrl: data.avatar_url,
     bio: data.bio ?? undefined,
     phone: data.phone ?? undefined,
     site: data.site ?? undefined,
     address: data.address as unknown as Address,
+    paymentConnectedAccount: data.payment_connected_account || '',
     createdAt: new Date(data.created_at),
   }
 }
@@ -47,11 +49,13 @@ export function readOneByUsernameAdapter(data: Row | null): User | null {
     id: data.id,
     username: data.username,
     name: data.name,
+    email: data.email,
     avatarUrl: data.avatar_url,
     bio: data.bio ?? undefined,
     phone: data.phone ?? undefined,
     site: data.site ?? undefined,
     address: data.address as unknown as Address,
+    paymentConnectedAccount: data.payment_connected_account || '',
     createdAt: new Date(data.created_at),
   }
 }

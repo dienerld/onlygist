@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxtjs/seo',
     '@unlok-co/nuxt-stripe',
+    '@vue-email/nuxt',
   ],
 
   imports: {
@@ -27,11 +28,18 @@ export default defineNuxtConfig({
   pages: true,
 
   runtimeConfig: {
+    resendKey: process.env.RESEND_API_KEY,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
     public: {
       nodeEnv: process.env.NODE_ENV,
       siteUrl: process.env.SITE_URL,
       supabaseUrl: process.env.SUPABASE_URL,
       supabaseKey: process.env.SUPABASE_KEY,
+    },
+    prices: {
+      5: process.env.STRIPE_PRODUCT_ID_5BRL,
+      10: process.env.STRIPE_PRODUCT_ID_10BRL,
+      15: process.env.STRIPE_PRODUCT_ID_15BRL,
     },
   },
 

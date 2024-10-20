@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { GistCardGroup, GistCardGroupLoader, GistCardItem } from '@/modules/gist/components/card'
+import { useGistList } from '@/modules/gist/composables/use-gist-list/useGistList'
+import PaymentSetupAlert from '@/modules/payments/components/payment-setup-alert/PaymentSetupAlert.vue'
 import { WidgetCondensed, WidgetGroup, WidgetGroupLoader } from '@/modules/reports/components/widget'
-
 import { useGistsReports } from '@/modules/reports/composables/use-gists-reports/useGistsReports'
 import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
+
 import { useScroll } from '@vueuse/core'
-import { useGistList } from '~/modules/gist/composables/use-gist-list/useGistList'
+import { useStripeAccountCreate } from '~/modules/payments/composables/use-stripe-account-create/useStripeAccountCreate'
+import { useStripeAccountValidate } from '~/modules/payments/composables/use-stripe-account-validate/useStripeAccountValidate'
 
 const route = useRoute()
 const router = useRouter()
+const { arrivedState } = useScroll(window, { offset: { bottom: 100 } })
 
 const { user } = inject(myselfKey)!
 const {
@@ -25,12 +29,22 @@ const {
   fetchMoreGistsByUsername: fetchMoreGists,
 } = useGistList({ username: user.value.username })
 
+const { create, loading: paymentCreateLoading } = useStripeAccountCreate()
+const { isValid, validate } = useStripeAccountValidate()
+
 function handleNavigateToDetail(id: string) {
-  const { username } = route.params
-  router.push(`/${username}/gist/${id}`)
+  router.push(`/${user.value.username}/gist/${id}`)
 }
 
-const { arrivedState } = useScroll(window, { offset: { bottom: 100 } })
+async function handlePaymentSetup() {
+  const response = await create(user.value.email)
+  if (!response) {
+    return
+  }
+
+  window.location.href = response.onboardingUrl
+}
+
 watch(
   () => arrivedState.bottom,
   (value) => {
@@ -40,9 +54,15 @@ watch(
     fetchMoreGists()
   },
 )
+
+onMounted(async () => {
+  validate(user.value.paymentConnectedAccount)
+})
 </script>
 
 <template>
+  <PaymentSetupAlert v-if="!isValid" :loading="paymentCreateLoading" @setup="handlePaymentSetup" />
+
   <WidgetGroup>
     <WidgetGroupLoader :loading="loadingReports" :amount="3">
       <WidgetCondensed :value="totalGists" label="Gists no total" />

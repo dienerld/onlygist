@@ -1,5 +1,6 @@
 import { useServerStripe } from '#stripe/server'
 import { serverSupabaseClient } from '#supabase/server'
+import type { Database } from '~/libs/supabase/schema'
 
 interface RequestOptions {
   email: string
@@ -16,5 +17,32 @@ export default defineEventHandler(async (event) => {
     throw createError({ status: 401, message: 'User not authenticated' })
   }
 
-  return 'ok'
+  const config = useRuntimeConfig()
+  const stripe = await useServerStripe(event)
+  const supabase = await serverSupabaseClient<Database>(event)
+
+  const account = await stripe.accounts.create({
+    type: 'express',
+    email: payload.email,
+    country: 'BR',
+    business_type: 'individual',
+  })
+
+  await supabase.from('profiles')
+    .update({
+      payment_connected_account: account.id,
+    })
+    .eq('email', payload.email)
+
+  const accountLink = await stripe.accountLinks.create({
+    account: account.id,
+    type: 'account_onboarding',
+    refresh_url: `${config.public.siteUrl}/app/panel`,
+    return_url: `${config.public.siteUrl}/app/panel`,
+  })
+
+  return {
+    accountId: account.id,
+    onboardingUrl: accountLink.url,
+  }
 })

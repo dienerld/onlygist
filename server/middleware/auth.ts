@@ -6,7 +6,6 @@ export interface AuthContext {
 }
 export default defineEventHandler(async (event) => {
   const url = getRequestURL(event)
-  const user = await serverSupabaseUser(event)
 
   const isApiCall = url.pathname.startsWith('/api')
 
@@ -18,11 +17,15 @@ export default defineEventHandler(async (event) => {
   if (!isApiCall) {
     return
   }
+  try {
+    const user = await serverSupabaseUser(event)
 
-  const context: AuthContext = {
-    isAuthenticated: Boolean(user),
-    user,
+    const context: AuthContext = {
+      isAuthenticated: Boolean(user),
+      user,
+    }
+
+    event.context.auth = context
   }
-
-  event.context.auth = context
+  catch {}
 })

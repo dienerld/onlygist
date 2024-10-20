@@ -7,6 +7,7 @@ import { DialogPaymentError as LazyDialogPaymentError } from '@/modules/payments
 import { DialogPaymentSuccess as LazyDialogPaymentSuccess } from '@/modules/payments/components/dialog-payment-success'
 import { myselfKey } from '@/modules/users/composables/use-myself/useMyself'
 import { GistCodeSnippet } from '~/modules/gist/components/code-snippet'
+import { useStripeCheckout } from '~/modules/payments/composables/use-stripe-checkout/useStripeCheckout'
 
 const route = useRoute()
 const router = useRouter()
@@ -14,6 +15,7 @@ const router = useRouter()
 const { user } = inject(myselfKey) as MySelfProvider
 const session = useSession()
 const services = useServices()
+const { createCheckoutUrl, checkoutUrl } = useStripeCheckout()
 
 const isPaymentSuccessfully = ref(false)
 const isPaymentFail = ref(false)
@@ -22,9 +24,22 @@ function handleNavigateToGistEdit() {
   router.push(`/app/gist/${route.params.id}/edit`)
 }
 
-const { data: gist, pending: loading } = await useLazyAsyncData('gist-detail', () => services.gist.readOne(route.params.slug as string))
+const { data: gist, status: loading } = await useLazyAsyncData('gist-detail', () => services.gist.readOne(route.params.slug as string))
 
 const { gistContent, loading: loadingGistContent, refetch } = useGistContent({ gist })
+
+async function handlePay() {
+  await createCheckoutUrl({
+    gistId: route.params.slug as string,
+    username: route.params.username as string,
+  })
+
+  if (!checkoutUrl.value) {
+    return
+  }
+
+  window.location.href = checkoutUrl.value
+}
 
 onMounted(() => {
   const { success_payment: success, fail_payment: fail } = route.query
@@ -58,13 +73,13 @@ useSeoMeta({
 </script>
 
 <template>
-  <PublicHeadlineLoader :loading>
+  <PublicHeadlineLoader :loading="loading === 'pending'">
     <PublicHeadline
       v-if="gist"
       :title="gist.title"
       :description="gist.description"
       :price="gist.price"
-      :author="gist.profiles.username"
+      :author="gist.profiles.username!"
       :lang="gist.lang"
     />
     <PublicHeadlineEmpty v-else />
@@ -81,11 +96,12 @@ useSeoMeta({
     class="flex flex-col gap-2 md:flex-row"
   >
     <Button
-      v-if="user?.username !== route.params.username"
-      label="Comprar por 10"
+      v-if="gist && user?.username !== route.params.username"
+      :label="`Comprar por ${gist.price} reais`"
       class="mt-5 w-full md:w-auto"
       icon-pos="right"
       icon="pi pi-shopping-bag"
+      @click="handlePay"
     />
     <Button
       v-if="user?.username === route.params.username && session.isLogged()"
