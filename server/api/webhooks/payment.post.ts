@@ -8,7 +8,7 @@ import { v4 as uuidV4 } from 'uuid'
 import type { Database } from '~/libs/supabase/schema'
 
 interface StripeEvent {
-  cliente_reference_id: string
+  client_reference_id: string
   customer_details: {
     name: string
     email: string
@@ -34,15 +34,22 @@ export default defineEventHandler(async (event) => {
   const gist = await supabase
     .from('gists')
     .select('id, content, title, description')
-    .eq('id', paymentIntentEvent.cliente_reference_id)
+    .eq('id', paymentIntentEvent.client_reference_id)
     .maybeSingle()
+
+  if (!gist.data) {
+    throw createError({
+      statusCode: 400,
+      message: 'Gist not found',
+    })
+  }
 
   await supabase
     .from('sales')
     .insert({
       id: uuidV4(),
       customer_email: paymentIntentEvent.customer_details.email,
-      gist_id: paymentIntentEvent.cliente_reference_id,
+      gist_id: paymentIntentEvent.client_reference_id,
     })
 
   const zip = new JSZip()
@@ -58,11 +65,11 @@ export default defineEventHandler(async (event) => {
   })
 
   const resend = new Resend(config.resendKey)
-  resend.emails.send({
+  await resend.emails.send({
     from: 'noreply@dienerld.dev',
     to: paymentIntentEvent.customer_details.email,
     subject: 'Seu gist chegou! 🎉 OnlyGist',
-    html: template,
+    html: template.html,
     attachments: [
       {
         filename: `${gist.data!.title}.zip`,
